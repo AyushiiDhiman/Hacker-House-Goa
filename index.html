@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hacker House Goa 2026 — Builder Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+ 
+  :root{
+    --navy:#0F2A3D;        
+    --navy-dk:#091C29;
+    --teal:#1B7A8C;       
+    --terracotta:#D9622B;  
+    --sun:#F4B740;         
+    --sand:#F6EAD2;        
+    --cream:#FBF6EA;       
+    --ink:#16241F;
+    --line:rgba(15,42,61,0.14);
+    --display:'Fraunces', serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);font-family:var(--mono);}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--line);}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:40px;height:40px;border-radius:50%;background:linear-gradient(160deg, var(--teal), var(--navy));display:flex;align-items:center;justify-content:center;color:var(--sun);font-family:var(--display);font-weight:700;font-size:18px;}
+  .brand-text b{font-family:var(--display);font-size:18px;color:var(--navy);}
+  .brand-text .yr{color:var(--terracotta);}
+  .brand-text .tag{display:block;font-size:10px;letter-spacing:.14em;color:rgba(15,42,61,0.5);margin-top:1px;}
+
+  .hero{text-align:center;padding:56px 24px 40px;max-width:760px;margin:0 auto;}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1.12;margin:0 0 14px;color:var(--navy);}
+  .hero p{font-size:13.5px;color:rgba(15,42,61,0.6);line-height:1.6;margin:0;}
+
+  .layout{display:grid;grid-template-columns:1fr 1fr;gap:44px;max-width:1180px;margin:0 auto;padding:0 32px 80px;align-items:start;}
+  @media (max-width:900px){.layout{grid-template-columns:1fr;gap:36px;}}
+
+  .eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--terracotta);font-weight:600;margin-bottom:10px;}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--terracotta);}
+  h2.section{font-family:var(--display);font-weight:700;font-size:24px;color:var(--navy);margin:0 0 6px;}
+  .section-sub{font-size:12.5px;color:rgba(15,42,61,0.6);line-height:1.5;margin:0 0 20px;}
+
+  .mode-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:34px;}
+  .mode-card{border:2px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;background:#fff;position:relative;transition:border-color .15s, background .15s;}
+  .mode-card.active{border-color:var(--navy);background:linear-gradient(160deg, var(--sun), #E8A22E);}
+  .mode-card .icon{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--sun);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px;}
+  .mode-card.active .icon{background:var(--navy-dk);}
+  .mode-card .pill{position:absolute;top:16px;right:16px;font-size:9.5px;letter-spacing:.08em;background:var(--navy);color:var(--sun);padding:3px 9px;border-radius:20px;font-weight:600;}
+  .mode-card:not(.active) .pill{background:var(--cream);color:rgba(15,42,61,0.5);border:1px solid var(--line);}
+  .mode-card h3{font-family:var(--display);font-size:17px;margin:0 0 4px;color:var(--navy);}
+  .mode-card p{font-size:11.5px;color:rgba(15,42,61,0.6);line-height:1.45;margin:0;}
+
+  .dropzone{border:2px dashed var(--teal);border-radius:16px;padding:30px 20px;text-align:center;cursor:pointer;background:#fff;margin-bottom:22px;transition:background .15s;}
+  .dropzone:hover{background:rgba(27,122,140,0.06);}
+  .dropzone input{display:none;}
+  .dz-icon{width:56px;height:56px;border-radius:50%;background:var(--sun);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:var(--navy-dk);}
+  .dropzone h3{font-family:var(--display);font-size:18px;margin:0 0 4px;color:var(--navy);}
+  .dropzone p{font-size:11.5px;color:rgba(15,42,61,0.55);margin:0 0 14px;}
+  .filetypes{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+  .ftag{font-size:10px;font-weight:600;padding:4px 9px;border-radius:20px;background:var(--cream);border:1px solid var(--line);color:rgba(15,42,61,0.6);}
+  .ftag.heic{background:var(--terracotta);color:#fff;border-color:var(--terracotta);}
+  .dz-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .privacy-note{font-size:10.5px;color:rgba(15,42,61,0.45);margin-top:12px;}
+
+  .zoom-row{display:flex;align-items:center;gap:10px;margin:-8px 0 20px;font-size:11px;}
+  input[type=range]{flex:1;accent-color:var(--terracotta);}
+
+  label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);font-weight:600;display:block;margin-bottom:6px;}
+  input[type=text]{width:100%;padding:11px 13px;border-radius:8px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-family:var(--mono);font-size:14px;outline:none;}
+  input[type=text]:focus{border-color:var(--navy);}
+  .field{display:flex;flex-direction:column;margin-bottom:16px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .team-fields{display:none;flex-direction:column;gap:10px;margin-bottom:16px;}
+  .team-fields.show{display:flex;}
+
+  button{font-family:var(--display);font-weight:700;font-size:14px;border:none;border-radius:9px;padding:12px 18px;cursor:pointer;}
+  .btn-primary{background:linear-gradient(120deg, var(--navy), var(--navy-dk));color:var(--sun);box-shadow:0 8px 20px rgba(15,42,61,0.25);}
+  .btn-primary:hover{filter:brightness(1.1);}
+  .btn-gold{background:linear-gradient(120deg, var(--sun), #E8A22E);color:var(--navy-dk);}
+  .btn-gold:hover{filter:brightness(1.05);}
+  .btn-ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy);font-family:var(--mono);font-weight:600;font-size:12.5px;}
+  .btn-ghost:hover{background:var(--navy);color:var(--sun);}
+  .actions{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;}
+  .actions button{flex:1;min-width:150px;}
+
+  .todo{margin-top:26px;padding-top:16px;border-top:1px dashed var(--line);font-size:11px;line-height:1.6;color:var(--terracotta);}
+  .todo b{color:var(--navy);}
+
+  .stage-wrap{position:sticky;top:24px;}
+  .stage{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px rgba(9,28,41,0.35);}
+  .beach-bg{position:absolute;inset:0;z-index:0;}
+  #cardCanvas{position:relative;z-index:1;width:100%;height:auto;display:block;cursor:grab;touch-action:none;}
+  #cardCanvas:active{cursor:grabbing;}
+  .dims-caption{text-align:center;font-size:11px;color:rgba(15,42,61,0.5);margin-top:14px;}
+  .status{text-align:center;font-size:11px;color:var(--terracotta);margin-top:6px;min-height:14px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">H</div>
+    <div class="brand-text"><b>Hacker House <span class="yr">Goa 2026</span></b><span class="tag">BUILDER STUDIO</span></div>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Build your Builder ID or Team Pass</h1>
+  <p>Choose Solo or Team mode, upload your photo, and the badge updates live. Nothing leaves your browser until you download or share it.</p>
+</div>
+
+<div class="layout">
+
+  <div>
+    <div class="eyebrow"><span class="dot"></span>Mode</div>
+    <h2 class="section">Choose your pass</h2>
+    <p class="section-sub">Switch between a Solo Builder ID and a Team Pass for 2–3 hackers.</p>
+
+    <div class="mode-row">
+      <div class="mode-card active" id="modeSolo">
+        <span class="pill" id="pillSolo">Active</span>
+        <div class="icon">◆</div>
+        <h3>Solo Pass</h3>
+        <p>One ticket, your photo, your stack, and a generated builder class.</p>
+      </div>
+      <div class="mode-card" id="modeTeam">
+        <span class="pill" id="pillTeam">Select</span>
+        <div class="icon">◆◆</div>
+        <h3>Team Pass</h3>
+        <p>One ticket combining 2–3 teammates under a shared crew name.</p>
+      </div>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span>Step 1</div>
+    <h2 class="section">Upload your photo</h2>
+    <p class="section-sub">Drag & drop, browse, or use your camera.</p>
+
+    <div class="dropzone" id="uploadBox">
+      <div class="dz-icon">⬆</div>
+      <h3>Drag & drop your portrait here</h3>
+      <p id="uploadLabel">or tap to browse from your device</p>
+      <div class="filetypes"><span class="ftag">JPG</span><span class="ftag">PNG</span><span class="ftag heic">HEIC (iOS)</span></div>
+      <div class="dz-btns" onclick="event.stopPropagation()"><button type="button" class="btn-ghost" id="browseBtn">Browse files</button></div>
+      <input type="file" id="photoInput" accept="image/*">
+      <div class="privacy-note">100% client-side · photo never uploaded to a server</div>
+    </div>
+
+    <div class="zoom-row">
+      <span>−</span>
+      <input type="range" id="zoomSlider" min="100" max="300" value="100">
+      <span>+</span>
+      <span style="color:rgba(15,42,61,0.45)">drag photo to reposition</span>
+    </div>
+
+    <div class="field"><label>Name</label><input type="text" id="nameInput" placeholder="e.g. Aryan Singh Thakur" maxlength="28"></div>
+
+    <div class="row2">
+      <div class="field"><label>Stack / role</label><input type="text" id="roleInput" placeholder="e.g. MERN | Python" maxlength="22"></div>
+      <div class="field"><label>Crew name</label><input type="text" id="teamInput" placeholder="e.g. Team Vindaloo" maxlength="20"></div>
+    </div>
+
+    <div class="team-fields" id="teamFields">
+      <div class="field" style="margin-bottom:0;"><label>Teammate 2</label><input type="text" id="mate2Input" placeholder="Name — role" maxlength="30"></div>
+      <div class="field" style="margin-bottom:0;"><label>Teammate 3 (optional)</label><input type="text" id="mate3Input" placeholder="Name — role" maxlength="30"></div>
+    </div>
+
+    <div class="field">
+      <label>Builder class</label>
+      <input type="text" id="titleInput" placeholder="e.g. Commit Machine" maxlength="26">
+      <div class="actions" style="margin-top:8px;"><button class="btn-ghost" id="shuffleTitle" type="button">🎲 Shuffle a class</button></div>
+    </div>
+
+    <div class="field">
+      <label>Currently shipping</label>
+      <input type="text" id="shippingInput" placeholder="e.g. A dashboard nobody asked for" maxlength="34">
+      <div class="actions" style="margin-top:8px;"><button class="btn-ghost" id="shuffleShipping" type="button">🎲 Shuffle a status</button></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" id="downloadBtn">Download PNG</button>
+      <button class="btn-gold" id="shareBtn">Share to X</button>
+    </div>
+
+    <div class="todo">
+      <b>Before you submit:</b> the wordmark, colors and QR/barcode strip here are placeholders/decorative.
+      Swap in the real Hacker House Goa 2026 logo (search <code>drawWordmark()</code> in the JS) and confirm
+      the event dates. Replace the demo photo with your own before posting.
+    </div>
+  </div>
+
+  <div class="stage-wrap">
+    <div class="eyebrow"><span class="dot"></span>Live preview</div>
+    <h2 class="section">Your builder ticket</h2>
+    <p class="section-sub">Updates instantly · 1000×1500 export</p>
+
+    <div class="stage">
+      <svg class="beach-bg" viewBox="0 0 1000 1500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#BFE3DE"/>
+            <stop offset="55%" stop-color="#1B7A8C"/>
+            <stop offset="100%" stop-color="#091C29"/>
+          </linearGradient>
+        </defs>
+        <rect width="1000" height="1500" fill="url(#sky)"/>
+        <g opacity="0.3" fill="#091C29">
+          <path d="M90 420 Q70 300 170 260 Q125 320 160 380 Q90 375 90 420 Z"/>
+          <rect x="80" y="405" width="20" height="220" rx="6"/>
+        </g>
+        <g opacity="0.22" fill="#091C29">
+          <path d="M900 360 Q880 250 960 215 Q925 265 950 315 Q895 312 900 360 Z"/>
+          <rect x="890" y="350" width="18" height="190" rx="6"/>
+        </g>
+      </svg>
+      <canvas id="cardCanvas" width="1000" height="1500"></canvas>
+    </div>
+    <div class="dims-caption">1000 × 1500 · tap Download when you're happy with the preview</div>
+    <div class="status" id="statusLine"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const canvas=document.getElementById('cardCanvas'), ctx=canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+
+  let img=null, imgOffset={x:0,y:0}, imgZoom=1.0, dragging=false, lastPos={x:0,y:0};
+  let builderNo=String(Math.floor(1000+Math.random()*8999));
+  let mode='solo';
+
+  const nameInput=document.getElementById('nameInput'), roleInput=document.getElementById('roleInput'),
+        teamInput=document.getElementById('teamInput'), titleInput=document.getElementById('titleInput'),
+        shippingInput=document.getElementById('shippingInput'),
+        mate2Input=document.getElementById('mate2Input'), mate3Input=document.getElementById('mate3Input'),
+        statusLine=document.getElementById('statusLine');
+
+  const CLASSES=["Commit Machine","Merge Conflict Diplomat","Full-Stack Wizard","Latency Assassin",
+    "Stack Overflow Alumnus","Professional Rubber-Duck","API Wrangler","Uptime Guardian",
+    "Chaos Engineer-in-Training","Ship-It Specialist","AI Architect","Bug Bounty Hunter"];
+  const SHIPPING=["A dashboard nobody asked for","An MVP held together by duct tape","Something spicy 🌶️",
+    "A very ambitious to-do list","Vibes, mostly","A questionable amount of caffeine","Three broken builds and a dream",
+    "The last 10% (allegedly)","A side project that ate the weekend","Something that mostly works"];
+
+  document.getElementById('shuffleTitle').addEventListener('click', ()=>{ titleInput.value=CLASSES[Math.floor(Math.random()*CLASSES.length)]; render(); });
+  document.getElementById('shuffleShipping').addEventListener('click', ()=>{ shippingInput.value=SHIPPING[Math.floor(Math.random()*SHIPPING.length)]; render(); });
+
+  const modeSolo=document.getElementById('modeSolo'), modeTeam=document.getElementById('modeTeam');
+  const pillSolo=document.getElementById('pillSolo'), pillTeam=document.getElementById('pillTeam');
+  const teamFields=document.getElementById('teamFields');
+  function setMode(m){
+    mode=m;
+    modeSolo.classList.toggle('active', m==='solo');
+    modeTeam.classList.toggle('active', m==='team');
+    pillSolo.textContent = m==='solo' ? 'Active' : 'Select';
+    pillTeam.textContent = m==='team' ? 'Active' : 'Select';
+    teamFields.classList.toggle('show', m==='team');
+    render();
+  }
+  modeSolo.addEventListener('click', ()=>setMode('solo'));
+  modeTeam.addEventListener('click', ()=>setMode('team'));
+
+  const photoInput=document.getElementById('photoInput'), uploadBox=document.getElementById('uploadBox'), browseBtn=document.getElementById('browseBtn');
+  uploadBox.addEventListener('click', ()=>photoInput.click());
+  browseBtn.addEventListener('click', e=>{e.stopPropagation(); photoInput.click();});
+  ['dragover','dragenter'].forEach(evt=>uploadBox.addEventListener(evt, e=>{e.preventDefault(); uploadBox.style.background='rgba(27,122,140,0.1)';}));
+  ['dragleave','drop'].forEach(evt=>uploadBox.addEventListener(evt, e=>{e.preventDefault(); uploadBox.style.background='';}));
+  uploadBox.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) loadPhoto(f); });
+  photoInput.addEventListener('change', e=>{ const f=e.target.files[0]; if(f) loadPhoto(f); });
+
+  function loadPhoto(file){
+    const url=URL.createObjectURL(file);
+    const testImg=new Image();
+    testImg.onload=()=>{
+      img=testImg; imgOffset={x:0,y:0}; imgZoom=1.0;
+      document.getElementById('zoomSlider').value=100;
+      document.getElementById('uploadLabel').textContent=file.name;
+      statusLine.textContent=''; render();
+    };
+    testImg.onerror=()=>{ statusLine.textContent='Could not load that file — try converting HEIC to JPG first'; };
+    testImg.src=url;
+  }
+
+  document.getElementById('zoomSlider').addEventListener('input', e=>{ imgZoom=e.target.value/100; render(); });
+
+  function toCanvasCoords(clientX,clientY){
+    const rect=canvas.getBoundingClientRect();
+    return {x:(clientX-rect.left)*(W/rect.width), y:(clientY-rect.top)*(H/rect.height)};
+  }
+  function startDrag(x,y){dragging=true;lastPos={x,y};}
+  function moveDrag(x,y){ if(!dragging)return; imgOffset.x+=(x-lastPos.x); imgOffset.y+=(y-lastPos.y); lastPos={x,y}; render(); }
+  function endDrag(){dragging=false;}
+  canvas.addEventListener('mousedown', e=>{const p=toCanvasCoords(e.clientX,e.clientY); startDrag(p.x,p.y);});
+  window.addEventListener('mousemove', e=>{const p=toCanvasCoords(e.clientX,e.clientY); moveDrag(p.x,p.y);});
+  window.addEventListener('mouseup', endDrag);
+  canvas.addEventListener('touchstart', e=>{const t=e.touches[0]; const p=toCanvasCoords(t.clientX,t.clientY); startDrag(p.x,p.y);}, {passive:true});
+  canvas.addEventListener('touchmove', e=>{const t=e.touches[0]; const p=toCanvasCoords(t.clientX,t.clientY); moveDrag(p.x,p.y);}, {passive:true});
+  canvas.addEventListener('touchend', endDrag);
+
+  [nameInput,roleInput,teamInput,titleInput,shippingInput,mate2Input,mate3Input].forEach(el=>el.addEventListener('input', render));
+
+  function roundRectPath(c,x,y,w,h,r){
+    c.beginPath(); c.moveTo(x+r,y);
+    c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r);
+    c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath();
+  }
+  function getVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function wrapText(text,maxWidth,font){
+    ctx.font=font;
+    if(ctx.measureText(text).width<=maxWidth) return text;
+    while(ctx.measureText(text+'…').width>maxWidth && text.length>0) text=text.slice(0,-1);
+    return text+'…';
+  }
+  function pill(x,y,w,h,label,value,accent){
+    roundRectPath(ctx,x,y,w,h,12);
+    ctx.fillStyle='#FFFFFF'; ctx.fill();
+    ctx.lineWidth=1.5; ctx.strokeStyle=getVar('--line').includes('rgba')?'rgba(15,42,61,0.18)':getVar('--line'); ctx.stroke();
+    ctx.textAlign='left';
+    ctx.font='700 12px "IBM Plex Mono"';
+    ctx.fillStyle=getVar('--teal');
+    ctx.fillText(label, x+18, y+24);
+    ctx.font='700 24px "Fraunces"';
+    ctx.fillStyle=accent||getVar('--navy');
+    ctx.fillText(wrapText(value, w-36, '700 24px "Fraunces"'), x+18, y+52);
+  }
+
+  const CARD={x:20,y:20,w:W-40,h:H-40,r:34};
+  const HEADER_H=225;
+  const PHOTO={x:60,y:280,w:340,h:340,r:24};
+  const PERF_Y=CARD.y+930;
+
+  function drawCardShell(){
+    ctx.save();
+    roundRectPath(ctx,CARD.x,CARD.y,CARD.w,CARD.h,CARD.r);
+    ctx.clip();
+    ctx.fillStyle=getVar('--navy'); ctx.fillRect(CARD.x,CARD.y,CARD.w,HEADER_H);
+    ctx.fillStyle=getVar('--sand'); ctx.fillRect(CARD.x,CARD.y+HEADER_H,CARD.w,CARD.h-HEADER_H);
+    // subtle dot texture in body
+    ctx.fillStyle='rgba(27,122,140,0.12)';
+    for(let yy=CARD.y+HEADER_H+24; yy<CARD.y+CARD.h-20; yy+=26){
+      for(let xx=CARD.x+24; xx<CARD.x+CARD.w-20; xx+=26){
+        ctx.beginPath(); ctx.arc(xx,yy,1.6,0,Math.PI*2); ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawHeader(){
+    ctx.save();
+    ctx.textAlign='left';
+    ctx.font='900 44px "Fraunces"';
+    ctx.fillStyle='#FFFFFF';
+    ctx.fillText('HACKER HOUSE', CARD.x+40, CARD.y+82);
+    ctx.font='900 44px "Fraunces"';
+    ctx.fillStyle=getVar('--sun');
+    ctx.fillText('GOA', CARD.x+40, CARD.y+130);
+    ctx.font='600 15px "IBM Plex Mono"';
+    ctx.fillStyle='rgba(255,255,255,0.75)';
+    ctx.fillText('GOA, INDIA · 28–31 OCT 2026', CARD.x+40, CARD.y+158);
+
+    ctx.textAlign='right';
+    ctx.font='700 13px "IBM Plex Mono"';
+    ctx.fillStyle=getVar('--sun');
+    ctx.fillText('#HHGOA-' + builderNo, CARD.x+CARD.w-40, CARD.y+40);
+    ctx.font='500 12px "IBM Plex Mono"';
+    ctx.fillStyle='rgba(255,255,255,0.6)';
+    ctx.fillText(mode==='team' ? 'TEAM PASS' : 'BUILDER PASS', CARD.x+CARD.w-40, CARD.y+60);
+    ctx.restore();
+  }
+
+  function drawPhoto(){
+    ctx.save();
+    roundRectPath(ctx,PHOTO.x,PHOTO.y,PHOTO.w,PHOTO.h,PHOTO.r);
+    ctx.clip();
+    ctx.fillStyle=getVar('--navy-dk'); ctx.fillRect(PHOTO.x,PHOTO.y,PHOTO.w,PHOTO.h);
+    if(img){
+      const cover=Math.max(PHOTO.w/img.width, PHOTO.h/img.height)*imgZoom;
+      const dw=img.width*cover, dh=img.height*cover;
+      const cx=PHOTO.x+PHOTO.w/2+imgOffset.x, cy=PHOTO.y+PHOTO.h/2+imgOffset.y;
+      ctx.drawImage(img, cx-dw/2, cy-dh/2, dw, dh);
+    } else {
+      const initial=(nameInput.value.trim()[0]||'B').toUpperCase();
+      ctx.fillStyle=getVar('--sun'); ctx.font='700 120px "Fraunces"'; ctx.textAlign='center';
+      ctx.fillText(initial, PHOTO.x+PHOTO.w/2, PHOTO.y+PHOTO.h/2+42);
+    }
+    ctx.restore();
+    ctx.save();
+    roundRectPath(ctx,PHOTO.x,PHOTO.y,PHOTO.w,PHOTO.h,PHOTO.r);
+    ctx.lineWidth=6; ctx.strokeStyle=getVar('--sun'); ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawInfoPills(){
+    const px=PHOTO.x+PHOTO.w+30, pw=CARD.x+CARD.w-40-px, ph=76, gap=14;
+    let py=PHOTO.y;
+    pill(px,py,pw,ph,'NAME', nameInput.value.trim()||'Your Name'); py+=ph+gap;
+    if(mode==='team'){
+      pill(px,py,pw,ph,'CREW', teamInput.value.trim()||'Team Name'); py+=ph+gap;
+      const mates=[mate2Input.value.trim(), mate3Input.value.trim()].filter(Boolean).join(' · ');
+      pill(px,py,pw,ph,'WITH', mates || 'Teammates', getVar('--terracotta')); py+=ph+gap;
+    } else {
+      pill(px,py,pw,ph,'STACK / ROLE', roleInput.value.trim()||'Stack · Role', getVar('--terracotta')); py+=ph+gap;
+    }
+    pill(px,py,pw,ph,'BUILDER CLASS', titleInput.value.trim()||'Builder');
+  }
+
+  function drawShippingBanner(){
+    const y=PHOTO.y+PHOTO.h+34, h=90;
+    roundRectPath(ctx,CARD.x+40,y,CARD.w-80,h,16);
+    ctx.fillStyle=getVar('--navy'); ctx.fill();
+    ctx.textAlign='center';
+    ctx.font='700 13px "IBM Plex Mono"';
+    ctx.fillStyle=getVar('--sun');
+    ctx.fillText('✦ CURRENTLY SHIPPING ✦', W/2, y+32);
+    ctx.font='700 26px "Fraunces"';
+    ctx.fillStyle='#FFFFFF';
+    ctx.fillText(wrapText(shippingInput.value.trim()||'Something in progress', CARD.w-140, '700 26px "Fraunces"'), W/2, y+66);
+    return y+h;
+  }
+
+  function drawTagChips(startY){
+    const chips=[['🌴','GOA MODE: ON'],['⚡','FUELED BY CHAI'],['🚀','SHIP IT']];
+    const chipH=44, gap=12;
+    const usableW=CARD.w-80;
+    const chipW=(usableW-gap*2)/3;
+    let cx=CARD.x+40;
+    ctx.font='700 14px "IBM Plex Mono"';
+    chips.forEach(([icon,label])=>{
+      roundRectPath(ctx,cx,startY,chipW,chipH,22);
+      ctx.fillStyle='#FFFFFF'; ctx.fill();
+      ctx.lineWidth=1.5; ctx.strokeStyle=getVar('--terracotta'); ctx.stroke();
+      ctx.fillStyle=getVar('--navy'); ctx.textAlign='center';
+      ctx.fillText(icon+' '+wrapText(label, chipW-24, '700 14px "IBM Plex Mono"'), cx+chipW/2, startY+28);
+      cx+=chipW+gap;
+    });
+    return startY+chipH;
+  }
+
+  function punchNotches(){
+    ctx.save();
+    ctx.globalCompositeOperation='destination-out';
+    ctx.beginPath(); ctx.arc(CARD.x, PERF_Y, 22, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(CARD.x+CARD.w, PERF_Y, 22, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawPerforation(){
+    ctx.save();
+    ctx.strokeStyle='rgba(15,42,61,0.35)';
+    ctx.lineWidth=2.5;
+    ctx.setLineDash([8,8]);
+    ctx.beginPath(); ctx.moveTo(CARD.x+30,PERF_Y); ctx.lineTo(CARD.x+CARD.w-30,PERF_Y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // decorative only — NOT a functional QR code or barcode
+  function drawStub(){
+    const y=PERF_Y+36;
+    const qrX=CARD.x+40, qrSize=170;
+    roundRectPath(ctx,qrX,y,qrSize,qrSize,14);
+    ctx.fillStyle='#FFFFFF'; ctx.fill();
+    ctx.lineWidth=2; ctx.strokeStyle=getVar('--sun'); ctx.stroke();
+    let seed=parseInt(builderNo,10);
+    function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    const cells=9, pad=16, cell=(qrSize-pad*2)/cells;
+    ctx.fillStyle=getVar('--navy');
+    for(let r=0;r<cells;r++) for(let c=0;c<cells;c++){
+      if(rnd()>0.56) ctx.fillRect(qrX+pad+c*cell, y+pad+r*cell, cell-2, cell-2);
+    }
+    ctx.textAlign='center'; ctx.font='600 11px "IBM Plex Mono"'; ctx.fillStyle=getVar('--teal');
+    ctx.fillText('BADGE QR · #'+builderNo, qrX+qrSize/2, y+qrSize+22);
+
+    const stubX=qrX+qrSize+30, stubW=CARD.x+CARD.w-40-stubX;
+    ctx.textAlign='left';
+    ctx.font='700 12px "IBM Plex Mono"'; ctx.fillStyle=getVar('--terracotta');
+    ctx.fillText('ADMIT ONE BUILDER', stubX, y+22);
+    ctx.font='700 28px "Fraunces"'; ctx.fillStyle=getVar('--navy');
+    ctx.fillText(wrapText(nameInput.value.trim()||'Your Name', stubW, '700 28px "Fraunces"'), stubX, y+58);
+
+    let bx=stubX, barY=y+80, barH=48;
+    let bseed=parseInt(builderNo,10)+7;
+    function brnd(){ bseed=(bseed*9301+49297)%233280; return bseed/233280; }
+    ctx.fillStyle=getVar('--navy');
+    while(bx < stubX+stubW-4){
+      const bw = 2+Math.floor(brnd()*4);
+      if(brnd()>0.35) ctx.fillRect(bx, barY, bw, barH);
+      bx += bw+3;
+    }
+    ctx.font='600 11px "IBM Plex Mono"'; ctx.fillStyle=getVar('--teal');
+    ctx.fillText('BUILD · SHIP · REPEAT', stubX, y+barH+96);
+  }
+
+  function drawFooterRibbon(){
+    ctx.save();
+    ctx.fillStyle=getVar('--terracotta');
+    const ry=CARD.y+CARD.h-56, rh=42, rx=CARD.x+CARD.w/2-150, rw=300;
+    ctx.beginPath();
+    ctx.moveTo(rx,ry); ctx.lineTo(rx+rw,ry); ctx.lineTo(rx+rw-14,ry+rh/2); ctx.lineTo(rx+rw,ry+rh);
+    ctx.lineTo(rx,ry+rh); ctx.lineTo(rx+14,ry+rh/2); ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle='#FFFFFF'; ctx.textAlign='center'; ctx.font='700 16px "IBM Plex Mono"';
+    ctx.fillText('#FRAMEINGOA', CARD.x+CARD.w/2, ry+rh/2+6);
+    ctx.restore();
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawCardShell();
+    drawHeader();
+    drawPhoto();
+    drawInfoPills();
+    const afterBanner=drawShippingBanner();
+    drawTagChips(afterBanner+22);
+    punchNotches();
+    drawPerforation();
+    drawStub();
+    drawFooterRibbon();
+
+    ctx.save();
+    roundRectPath(ctx,CARD.x,CARD.y,CARD.w,CARD.h,CARD.r);
+    ctx.lineWidth=2; ctx.strokeStyle='rgba(15,42,61,0.25)'; ctx.stroke();
+    ctx.restore();
+  }
+
+  document.fonts.ready.then(render);
+  render();
+
+  document.getElementById('downloadBtn').addEventListener('click', ()=>{
+    const link=document.createElement('a');
+    const name=(nameInput.value.trim()||'builder').toLowerCase().replace(/\s+/g,'-');
+    link.download=`hackerhousegoa2026-${mode}-${name}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  document.getElementById('shareBtn').addEventListener('click', async ()=>{
+    const name=nameInput.value.trim()||'a builder';
+    const text = mode==='team'
+      ? `Our crew just built our Hacker House Goa 2026 Team Pass 🌴💻 #FrameInGoa`
+      : `I just built my ${name} Builder Ticket for Hacker House Goa 2026 🌴💻 #FrameInGoa`;
+    canvas.toBlob(async (blob)=>{
+      const file=new File([blob], 'hackerhousegoa2026.png', {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file], text}); return; }catch(err){}
+      }
+      const link=document.createElement('a');
+      link.download='hackerhousegoa2026.png';
+      link.href=URL.createObjectURL(blob);
+      link.click();
+      statusLine.textContent='Image downloaded — attach it in the tweet window that just opened';
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+    }, 'image/png');
+  });
+
+})();
+</script>
+</body>
+</html>
